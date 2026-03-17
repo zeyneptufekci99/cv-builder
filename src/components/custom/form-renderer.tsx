@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { PersonalForm } from "./personal-form";
-import type { IExperienceData, IPersonalData } from "@/types/cv";
+import type {
+  IEducationData,
+  IExperienceData,
+  IPersonalData,
+} from "@/types/cv";
 import { ExperienceForm } from "./experience-form";
+import { EducationForm } from "./education-form";
 
 const emptyPersonal: IPersonalData = {
   name: "",
@@ -20,11 +25,21 @@ const emptyExperience: IExperienceData = {
   description: "",
 };
 
+const emptyeducationData: IEducationData = {
+  id: "",
+  school: "",
+  degree: "",
+  start: "",
+  end: "",
+  educationLevel: "",
+};
+
 export function FormRenderer() {
   const [personalData, setPersonalData] =
     useState<IPersonalData>(emptyPersonal);
 
   const [experienceData, setExperienceData] = useState<IExperienceData[]>([]);
+  const [educationData, setEducationData] = useState<IEducationData[]>([]);
 
   const handleSavePersonal = (updated: IPersonalData) => {
     setPersonalData(updated);
@@ -39,7 +54,20 @@ export function FormRenderer() {
     );
   };
 
+  const handleSaveEducation = (
+    index: number,
+    updatedEducation: IEducationData,
+  ) => {
+    setEducationData((prev) =>
+      prev.map((item, i) => (i === index ? updatedEducation : item)),
+    );
+  };
+
   const handleCreateNewExperience = () => {
+    setExperienceData((prev) => [...prev, emptyExperience]);
+  };
+
+  const handleCreateNewEducation = () => {
     setExperienceData((prev) => [...prev, emptyExperience]);
   };
 
@@ -51,6 +79,12 @@ export function FormRenderer() {
         data={experienceData}
         onSave={handleSaveExperience}
         onCreateNew={handleCreateNewExperience}
+      />
+
+      <EducationForm
+        data={educationData}
+        onSave={handleSaveEducation}
+        onCreateNew={handleCreateNewEducation}
       />
     </div>
   );

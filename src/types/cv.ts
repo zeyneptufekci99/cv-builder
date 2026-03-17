@@ -18,6 +18,7 @@ export interface IExperienceData {
 }
 
 export interface IEducationData {
+  id: UUID;
   school: string;
   degree: string;
   start: string;
