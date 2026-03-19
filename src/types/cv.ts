@@ -25,10 +25,14 @@ export interface IEducationData {
   end: string;
   educationLevel: string; // Bachelor, Master, Doctorate, Other level
 }
+export interface ISkillData {
+  id: UUID;
+  skill: string;
+}
 
 export interface ICVData {
   personal: IPersonalData;
   experience: IExperienceData[];
   education: IEducationData[];
-  skills: string[];
+  skills: ISkillData[];
 }

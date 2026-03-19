@@ -4,9 +4,12 @@ import type {
   IEducationData,
   IExperienceData,
   IPersonalData,
+  ISkillData,
 } from "@/types/cv";
 import { ExperienceForm } from "./experience-form";
 import { EducationForm } from "./education-form";
+import { SkillContainer } from "./skill-container";
+import { SkillsForm } from "./skills-form";
 
 const emptyPersonal: IPersonalData = {
   name: "",
@@ -40,7 +43,7 @@ export function FormRenderer() {
 
   const [experienceData, setExperienceData] = useState<IExperienceData[]>([]);
   const [educationData, setEducationData] = useState<IEducationData[]>([]);
-
+  const [skills, setSkills] = useState<ISkillData[]>([]);
   const handleSavePersonal = (updated: IPersonalData) => {
     setPersonalData(updated);
   };
@@ -85,6 +88,13 @@ export function FormRenderer() {
         data={educationData}
         onSave={handleSaveEducation}
         onCreateNew={handleCreateNewEducation}
+      />
+      <SkillsForm
+        onAddNewSkill={(item: ISkillData) =>
+          setSkills((prev) => [...prev, item])
+        }
+        skills={skills}
+        onClickClose={(id) => setSkills(skills.filter((i) => i.id === id))}
       />
     </div>
   );
